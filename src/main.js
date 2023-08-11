@@ -3,7 +3,6 @@ import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-import lodash from "lodash";
 import moment from "moment";
 import marked from "marked";
 import highlight from "highlight.js";
@@ -18,7 +17,6 @@ import "./css/main.css";
 import { gitHubApi, isGetUserInfo, queryParse, queryStringify } from "./utils";
 
 moment.locale("zh-cn");
-Vue.prototype._ = lodash;
 Vue.prototype.$moment = moment;
 Vue.prototype.$http = axios;
 Vue.prototype.$highlight = highlight;
