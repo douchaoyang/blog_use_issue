@@ -47,6 +47,7 @@
     </div>
     <div class="bottom-bar">
       <pagination
+        v-if="issues.length"
         :totalNum="totalNum"
         :currentPage="currentPage"
         :pageSize="pageSize"
