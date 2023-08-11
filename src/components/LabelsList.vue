@@ -60,8 +60,8 @@ export default {
   ul {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     li {
-      flex: 1;
       span {
         display: block;
         font-size: 12px;
