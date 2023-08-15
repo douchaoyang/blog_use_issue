@@ -24,6 +24,14 @@
         :comment="comment"
       />
     </div>
+    <transition name="fade">
+      <div v-if="src" class="light-container-bg" @click="dark"></div>
+    </transition>
+    <transition name="zoom">
+      <div v-if="src" class="light-container" @click="dark">
+        <img :src="src" alt="" />
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -37,6 +45,7 @@ export default {
       number: null,
       comments: [],
       newComment: null,
+      src: "",
     };
   },
   components: { Comment },
@@ -52,6 +61,7 @@ export default {
           .getComments(this, this.issue.comments_url)
           .then((response) => {
             this.comments = response.data;
+            this.light();
           });
       }
     },
@@ -59,10 +69,27 @@ export default {
       this.$gitHubApi.getIssue(this, this.number).then((response) => {
         this.issue = response.data;
         this.getComments();
+        this.light();
       });
     },
     back() {
       this.$router.go(-1);
+    },
+    light() {
+      let self = this;
+      setTimeout(() => {
+        [].forEach.call(document.querySelectorAll("a"), (a) => {
+          if (a.getElementsByTagName("img").length) {
+            a.addEventListener("click", function (e) {
+              e.preventDefault();
+              self.src = this.href;
+            });
+          }
+        });
+      }, 0);
+    },
+    dark() {
+      this.src = "";
     },
   },
   created() {
@@ -132,6 +159,33 @@ export default {
     border-top: 1px solid #eee;
     padding-top: 2rem;
     overflow: hidden;
+  }
+  .light-container-bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.857);
+    z-index: 9526;
+  }
+  .light-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9527;
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 }
 </style>

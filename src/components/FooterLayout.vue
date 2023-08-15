@@ -2,7 +2,7 @@
   <div>
     <div class="footer-layout-container">
       <p v-if="gitHubUser">
-        &copy;2023 {{ gitHubUser.name }}. All rights reserved.
+        &copy;2023 {{ gitHubUser.login }}. All rights reserved.
       </p>
     </div>
   </div>
