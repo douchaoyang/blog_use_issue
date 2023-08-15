@@ -29,7 +29,7 @@
     </transition>
     <transition name="zoom">
       <div v-if="src" class="light-container" @click="dark">
-        <img :src="src" alt="" />
+        <img class="light-container-img" :src="src" alt="" />
       </div>
     </transition>
   </div>
@@ -61,7 +61,6 @@ export default {
           .getComments(this, this.issue.comments_url)
           .then((response) => {
             this.comments = response.data;
-            this.light();
           });
       }
     },
@@ -69,7 +68,6 @@ export default {
       this.$gitHubApi.getIssue(this, this.number).then((response) => {
         this.issue = response.data;
         this.getComments();
-        this.light();
       });
     },
     back() {
@@ -77,16 +75,21 @@ export default {
     },
     light() {
       let self = this;
-      setTimeout(() => {
-        [].forEach.call(document.querySelectorAll("a"), (a) => {
-          if (a.getElementsByTagName("img").length) {
-            a.addEventListener("click", function (e) {
-              e.preventDefault();
-              self.src = this.href;
-            });
+      document.addEventListener(
+        "click",
+        function (e) {
+          if (
+            e.target.tagName.toUpperCase() == "IMG" &&
+            e.target.parentNode.tagName.toUpperCase() == "A" &&
+            e.target.className != "light-container-img"
+          ) {
+            e.target.parentNode.removeAttribute("href");
+            e.target.parentNode.removeAttribute("target");
+            self.src = e.target.src;
           }
-        });
-      }, 0);
+        },
+        false
+      );
     },
     dark() {
       this.src = "";
@@ -110,6 +113,7 @@ export default {
       } else {
         this.getIssue();
       }
+      this.light();
     });
   },
 };
