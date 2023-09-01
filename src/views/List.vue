@@ -3,7 +3,7 @@
     <div class="blog-header" v-if="gitHubUser">
       <div class="bio">
         <span>*</span>
-        {{ gitHubUser.bio }}
+        <a :href="gitHubUser.blog">{{ gitHubUser.bio }}</a>
       </div>
       <div class="search">
         <input
@@ -135,11 +135,12 @@ export default {
       color: #999;
       line-height: 1;
       font-family: "Droid Serif", Georgia, "Times New Roman", STHeiti, serif;
+      display: flex;
+      align-items: center;
       span {
         color: #f00;
         font-weight: bold;
         font-size: 16px;
-        float: left;
         height: 16px;
         overflow: hidden;
         line-height: 22px;
@@ -199,6 +200,8 @@ export default {
     }
   }
   .no-data {
+    margin-top: 12px;
+    border-top: 1px solid #eee;
     padding: 2rem 0 4rem;
     div {
       height: 150px;
