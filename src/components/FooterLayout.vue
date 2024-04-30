@@ -2,8 +2,29 @@
   <div>
     <div class="footer-layout-container">
       <p v-if="gitHubUser">
-        &copy;2023 {{ gitHubUser.login }}. All rights reserved.
+        &copy;2024 {{ gitHubUser.login }}. All rights reserved.
       </p>
+      <div
+        v-if="gitHubUser"
+        class="player"
+      >
+        <iframe
+          frameborder="no"
+          border="0"
+          marginwidth="0"
+          marginheight="0"
+          width="330"
+          height="86"
+          :src="`//music.163.com/outchain/player?type=${
+            gitHubUser.location.split('|')[1]
+          }&id=${gitHubUser.location.split('|')[2]}&auto=1&height=66`"
+        ></iframe>
+        <span class="name">
+          <marquee scrollamount="4">
+            {{ gitHubUser.location.split("|")[0] }}
+          </marquee>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -20,12 +41,42 @@ export default {
 .footer-layout-container {
   background: #fff;
   padding: 40px 0 0;
+  position: relative;
   p {
     border-top: 1px solid #eee;
     text-align: center;
     font-size: 12px;
     padding: 20px 0 20px;
     color: #ccc;
+    line-height: 25px;
+  }
+  .player {
+    width: 66px;
+    height: 66px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    span {
+      position: absolute;
+      left: 0;
+      font-size: 12px;
+      line-height: 12px;
+      height: 12px;
+      color: #fff;
+      white-space: nowrap;
+      width: 100%;
+      &.name {
+        top: 0;
+        pointer-events: none;
+      }
+    }
+    iframe {
+      display: block;
+      position: absolute;
+      left: -10px;
+      top: -10px;
+    }
   }
 }
 </style>

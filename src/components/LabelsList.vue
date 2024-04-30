@@ -1,9 +1,27 @@
 <template>
-  <div class="labels">
-    <ul class="label-list" v-if="labels.length">
+  <div
+    class="labels"
+    :style="{
+      background: `linear-gradient(to right, ${gradientColor.join(',')})`,
+    }"
+  >
+    <ul
+      class="label-list"
+      v-if="labels.length"
+    >
       <li @click="setActiveLabel(null)">
-        <span class="checked" v-if="!activeLabel">ALL</span>
-        <span v-else style="background-color: #3593f2">ALL</span>
+        <span
+          class="checked"
+          v-if="!activeLabel"
+        >
+          ALL
+        </span>
+        <span
+          v-else
+          style="background-color: #3593f2"
+        >
+          ALL
+        </span>
       </li>
       <li
         v-for="label in labels"
@@ -16,7 +34,10 @@
         >
           {{ label.name }}
         </span>
-        <span v-else :style="{ backgroundColor: '#' + label.color }">
+        <span
+          v-else
+          :style="{ backgroundColor: '#' + label.color }"
+        >
           {{ label.name }}
         </span>
       </li>
@@ -36,7 +57,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["labels", "activeLabel"]),
+    ...mapGetters(["labels", "gradientColor", "activeLabel"]),
   },
   methods: {
     ...mapActions(["setLabels", "updateActiveLabel"]),
