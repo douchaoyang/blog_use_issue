@@ -5,7 +5,7 @@
         &copy;2024 {{ gitHubUser.login }}. All rights reserved.
       </p>
     </div>
-    <div
+    <!-- <div
       v-if="gitHubUser"
       class="page-player"
     >
@@ -25,7 +25,7 @@
           {{ gitHubUser.location.split("|")[0] }}
         </marquee>
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
