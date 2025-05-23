@@ -46,7 +46,7 @@ module.exports = {
   },
   getReadme(vue) {
     return vue.$http.get(
-      `https://raw.gitmirror.com/${vue.$store.getters.repo}/master/README.md`,
+      `https://raw.githubusercontent.com/${vue.$store.getters.repo}/master/README.md`,
       {
         headers: {
           Accept: "application/vnd.github.v3.html",
